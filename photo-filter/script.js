@@ -58,6 +58,7 @@
 
     const url = image.baseUrl + partOfDay + '/' + image.arr[index];
     loadImage(url);
+    image.tag.setAttribute('crossOrigin', 'anonymous');
     image.pointer++;
   }
 
@@ -72,7 +73,36 @@
     const reader = new FileReader();
     reader.onload = () => image.tag.src = reader.result;
     reader.readAsDataURL(file);
-});
+  });
+
+  /* DOWNLOAD IMAGE ============================================================ */
+
+  const btnDownloadImg = document.querySelector('.btn-save');
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+  const link = document.createElement('a');
+
+  const drawImage = () => {
+    canvas.width = image.tag.naturalWidth;
+    canvas.height = image.tag.naturalHeight;
+
+    let filtersStr = '';
+
+    filters.forEach(el => {
+      filtersStr += `${ el.name }(${ el.value + el.dataset['sizing'] }) `;
+    });
+
+    context.filter = filtersStr;
+    context.drawImage(image.tag, 0, 0);
+  }
+
+  btnDownloadImg.addEventListener('click', () => {
+    drawImage();
+    link.download = 'image.jpg';
+    link.href = canvas.toDataURL('image/jpeg');
+    link.click();
+    link.delete;
+  });
 
   /* FULLSCREEN ============================================================ */
 
