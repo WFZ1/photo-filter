@@ -25,7 +25,7 @@
     }); 
   });
 
-  /* NEXT PICTURE ============================================================ */
+  /* NEXT IMAGE ============================================================ */
   
   const btnNextImg = document.querySelector('.btn-next');
   const image = {
@@ -39,7 +39,7 @@
 
   const loadImage = url => {
     const img = new Image();
-    img.addEventListener('load', () => image.tag.src = url);
+    img.onload = () => image.tag.src = url;
     img.src = url;
   };
 
@@ -62,6 +62,17 @@
   }
 
   btnNextImg.addEventListener('click', getImage);
+
+  /* UPLOAD IMAGE ============================================================ */
+
+  const btnUploadImg = document.querySelector('.btn-load--input');
+
+  btnUploadImg.addEventListener('change', e => {
+    const file = e.currentTarget.files[0];
+    const reader = new FileReader();
+    reader.onload = () => image.tag.src = reader.result;
+    reader.readAsDataURL(file);
+});
 
   /* FULLSCREEN ============================================================ */
 
