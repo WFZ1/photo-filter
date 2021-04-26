@@ -62,4 +62,16 @@
   }
 
   btnNextImg.addEventListener('click', getImage);
+
+  /* FULLSCREEN ============================================================ */
+
+  const fullscreen = document.querySelector('.fullscreen');
+
+  fullscreen.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  });
 }());
