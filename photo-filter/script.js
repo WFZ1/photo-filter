@@ -112,9 +112,14 @@
     canvas.height = image.naturalHeight;
 
     let filtersStr = '';
+    const rateBlur = image.naturalWidth > image.naturalHeight ? image.naturalWidth / image.width : image.naturalHeight / image.height;
 
     filters.forEach(el => {
-      filtersStr += `${ el.name }(${ el.value + el.dataset['sizing'] }) `;
+      if (el.name !== 'blur') {
+        filtersStr += `${ el.name }(${ el.value + el.dataset['sizing'] }) `;
+      } else {
+        filtersStr += `${ el.name }(${ el.value * rateBlur + el.dataset['sizing'] }) `;
+      }
     });
 
     context.filter = filtersStr;
