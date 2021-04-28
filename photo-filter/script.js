@@ -1,6 +1,7 @@
 (function() {
   const filters = document.querySelectorAll('input[type="range"]');
   const image = document.querySelector('img');
+  const inputUploadImg = document.querySelector('.btn-load--input');
   
   /* ADJUSTMENT OF FILTERS FOR IMAGE ============================================================ */
 
@@ -62,6 +63,7 @@
   };
 
   const getImage = () => {
+    inputUploadImg.value = null;
     activateBtn(btnNextImg);
 
     const index = images.pointer % images.arr.length;
@@ -87,7 +89,6 @@
   /* UPLOAD IMAGE ============================================================ */
 
   const btnUploadImg = document.querySelector('.btn-load');
-  const inputUploadImg = document.querySelector('.btn-load--input');
 
   inputUploadImg.addEventListener('change', e => {
     const file = e.currentTarget.files[0];
